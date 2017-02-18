@@ -1,4 +1,5 @@
 (function(FuseBox){FuseBox.$fuse$=FuseBox;
+var __process_env__ = {"NODE_ENV":"development"};
 var __fsbx_css = function (__filename, contents) {
     if (FuseBox.isServer) {
         return;
@@ -49,7 +50,7 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = require('./App.js');
+var _App = require('./App');
 
 var _App2 = _interopRequireDefault(_App);
 
@@ -129,8 +130,6 @@ var App = function (_Component) {
 
   return App;
 }(_react.Component);
-
-console.log('App...8', App);
 
 exports.default = App;
 });
