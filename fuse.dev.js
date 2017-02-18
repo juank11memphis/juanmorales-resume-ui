@@ -9,8 +9,11 @@ let fuseBox = new fsbx.FuseBox({
   outFile: './dist/main.js',
   plugins: [
     fsbx.EnvPlugin({ NODE_ENV: "development" }),
+    [
+      fsbx.CSSResourcePlugin({ inline: true }),
+      fsbx.CSSPlugin()
+    ],
     fsbx.SVGPlugin(),
-    fsbx.CSSPlugin(),
     fsbx.BabelPlugin()
   ]
 });
