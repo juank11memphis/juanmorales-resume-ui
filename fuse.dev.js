@@ -4,9 +4,9 @@ let fuseBox = new fsbx.FuseBox({
   homeDir: 'src/',
   sourceMap: {
     bundleReference: 'sourcemaps.js.map',
-    outFile: './build/sourcemaps.js.map',
+    outFile: './dist/sourcemaps.js.map',
   },
-  outFile: './build/out.js',
+  outFile: './dist/main.js',
   plugins: [
     fsbx.EnvPlugin({ NODE_ENV: "development" }),
     fsbx.SVGPlugin(),
