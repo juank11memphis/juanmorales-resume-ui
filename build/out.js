@@ -130,7 +130,7 @@ var App = function (_Component) {
   return App;
 }(_react.Component);
 
-console.log('App...6', App);
+console.log('App...8', App);
 
 exports.default = App;
 });

@@ -21,6 +21,4 @@ class App extends Component {
   }
 }
 
-console.log('App...6', App);
-
 export default App;
