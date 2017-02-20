@@ -1,14 +1,28 @@
 import React, { Component } from 'react';
-import logo from '../styles/logo.svg';
+import { Segment } from 'semantic-ui-react';
+
+// import { Header } from './common';
 
 class App extends Component {
   render() {
+
+    /*
+    <Segment inverted vertical textAlign="center" >
+      <Header />
+      {this.props.children}
+    </Segment>
+    */
+
     return (
-      <div className="ui container">
-        <img src={logo} />
-      </div>
+      <Segment inverted vertical textAlign="center" >
+        <div >hello</div>
+      </Segment>
     );
   }
 }
+
+// App.propTypes = {
+//   children: React.PropTypes.object.isRequired
+// };
 
 export default App;
