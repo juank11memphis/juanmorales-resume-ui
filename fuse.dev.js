@@ -1,6 +1,7 @@
 const fsbx = require('fuse-box');
 
 let fuseBox = new fsbx.FuseBox({
+  cache: false,
   homeDir: 'src/',
   sourceMap: {
     bundleReference: 'sourcemaps.js.map',
