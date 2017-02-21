@@ -5,7 +5,7 @@ import { Menu, Container } from 'semantic-ui-react';
 class Header extends Component {
 
   state = {
-    activeItem: 'home'
+    activeItem: null
   };
 
   DEFAULT_MENU_ITEM = 'home';
@@ -14,10 +14,10 @@ class Header extends Component {
 
   render() {
     let { activeItem } = this.state;
-    // if (activeItem === null) {
-    //   activeItem = this.context.router.getCurrentLocation().pathname;
-    //   activeItem = activeItem.substring(1, activeItem.length);
-    // }
+    if (activeItem === null) {
+      activeItem = this.context.router.getCurrentLocation().pathname;
+      activeItem = activeItem.substring(1, activeItem.length);
+    }
     activeItem = activeItem ? activeItem : this.DEFAULT_MENU_ITEM;
 
     return (
@@ -36,5 +36,9 @@ class Header extends Component {
     );
   }
 }
+
+Header.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
 
 export default Header;
