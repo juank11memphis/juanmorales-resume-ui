@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { IndexLink } from 'react-router';
-import { Menu, Container } from 'semantic-ui-react';
+import { Menu, Container, Image } from 'semantic-ui-react';
 
 class Header extends Component {
 
@@ -23,14 +23,16 @@ class Header extends Component {
     return (
       <Container>
         <Menu size="large" inverted pointing secondary >
-          <Menu.Item
-            as={IndexLink}
-            to="/"
-            name="home"
-            active={activeItem === 'home'}
-            onClick={this.handleItemClick} >
-            Home
-          </Menu.Item>
+          <Menu.Menu position="right">
+            <Menu.Item
+              as={IndexLink}
+              to="/"
+              name="home"
+              active={activeItem === 'home'}
+              onClick={this.handleItemClick} >
+              Home
+            </Menu.Item>
+          </Menu.Menu>
         </Menu>
       </Container>
     );
