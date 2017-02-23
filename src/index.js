@@ -1,13 +1,13 @@
 import React from 'react';
 import {render} from 'react-dom';
 import {Router, browserHistory} from 'react-router';
-import routes from './core/routes';
 import {Provider} from 'react-redux';
+
+import routes from './core/routes';
+import configureStore from './core/configureStore';
 
 import 'semantic-ui-css/semantic.css';
 import './styles/main.css';
-
-import configureStore from './core/configureStore';
 
 const store = configureStore();
 

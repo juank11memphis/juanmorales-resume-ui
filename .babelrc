@@ -1,16 +1,15 @@
 {
-  "sourceMaps": true,
-  "presets": [
-    "latest",
-    "react",
-    "stage-1"
-  ],
   "plugins": [
-    ["transform-react-jsx"]
+    "transform-class-properties"
+  ],
+  "presets": [
+    ["es2015", { "modules": false }],
+    "react"
   ],
   "env": {
     "development": {
       "presets": [
+        "react-hmre"
       ]
     },
     "production": {
