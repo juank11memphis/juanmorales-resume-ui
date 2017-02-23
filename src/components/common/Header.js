@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { IndexLink } from 'react-router';
-import { Menu, Container, Image } from 'semantic-ui-react';
+import { Menu, Container } from 'semantic-ui-react';
 
 class Header extends Component {
 

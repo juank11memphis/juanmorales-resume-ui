@@ -7,12 +7,14 @@
   "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --env=dev",
+    "start": "npm-run-all --parallel server:dev lint:watch",
+    "server:dev": "webpack-dev-server --env=dev",
     "build": "cross-env NODE_ENV=production webpack --env=prod",
-    "prebuild": "npm run clean-dist",
+    "prebuild": "npm run clean-dist && npm run lint",
     "clean-dist": "npm run remove-dist && mkdir dist",
     "remove-dist": "node_modules/.bin/rimraf ./dist",
-    "lint": "eslint ./src ./webpack.config.js -f table || true"
+    "lint": "esw src",
+    "lint:watch": "npm run lint -- --watch"
   },
   "dependencies": {
     "react": "15.4.2",
@@ -47,6 +49,7 @@
     "html-webpack-plugin": "2.28.0",
     "inline-manifest-webpack-plugin": "3.0.1",
     "json-loader": "0.5.4",
+    "npm-run-all": "4.0.2",
     "redux-immutable-state-invariant": "1.2.4",
     "redux-logger": "2.8.1",
     "rimraf": "2.6.0",
