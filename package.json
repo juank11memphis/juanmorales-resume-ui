@@ -7,14 +7,11 @@
   "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm-run-all --parallel server:dev lint:watch",
-    "server:dev": "webpack-dev-server --env=dev",
+    "start": "webpack-dev-server --env=dev",
     "build": "cross-env NODE_ENV=production webpack --env=prod",
-    "prebuild": "npm run clean-dist && npm run lint",
+    "prebuild": "npm run clean-dist",
     "clean-dist": "npm run remove-dist && mkdir dist",
-    "remove-dist": "node_modules/.bin/rimraf ./dist",
-    "lint": "esw src",
-    "lint:watch": "npm run lint -- --watch"
+    "remove-dist": "node_modules/.bin/rimraf ./dist"
   },
   "dependencies": {
     "react": "15.4.2",
@@ -42,6 +39,7 @@
     "css-loader": "0.26.1",
     "eslint": "3.16.1",
     "eslint-config-airbnb": "14.1.0",
+    "eslint-loader": "1.6.3",
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "4.0.0",
     "eslint-plugin-react": "6.10.0",
@@ -49,10 +47,10 @@
     "html-webpack-plugin": "2.28.0",
     "inline-manifest-webpack-plugin": "3.0.1",
     "json-loader": "0.5.4",
-    "npm-run-all": "4.0.2",
     "redux-immutable-state-invariant": "1.2.4",
     "redux-logger": "2.8.1",
     "rimraf": "2.6.0",
+    "service-mocker": "1.1.0",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "webpack": "2.2.1",
