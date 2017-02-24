@@ -1,7 +1,9 @@
 export default {
 
   header: {
-    menuItems: []
+    menuItems: [],
+    title: '',
+    subtitle: ''
   },
 
   skills: {

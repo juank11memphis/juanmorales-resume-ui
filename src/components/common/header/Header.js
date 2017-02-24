@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { IndexLink } from 'react-router';
+import { IndexLink, Link } from 'react-router';
 import { Menu, Container, Image } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -22,9 +22,26 @@ class Header extends Component {
 
   handleItemClick = (event, { name }) => {
     this.setState({ activeItem: name });
-  }
+  };
+
+  createMenuItem = (menuItem, index, activeItem) => {
+    let indexType = menuItem.home === true ? IndexLink : Link;
+    const menuItemEl = (
+      <Menu.Item
+        key={index}
+        as={indexType}
+        to={menuItem.to}
+        name={menuItem.name}
+        active={activeItem === menuItem.name}
+        onClick={this.handleItemClick} >
+        {menuItem.text}
+      </Menu.Item>
+    );
+    return menuItemEl;
+  };
 
   render() {
+    const {headerData} = this.props;
     let { activeItem } = this.state;
     if (activeItem === null) {
       activeItem = this.context.router.getCurrentLocation().pathname;
@@ -37,16 +54,13 @@ class Header extends Component {
         <Menu size="large" inverted pointing secondary >
           <Image src={logo} width="50" height="50" />
           <Menu.Menu position="right">
-            <Menu.Item
-              as={IndexLink}
-              to="/"
-              name="home"
-              active={activeItem === 'home'}
-              onClick={this.handleItemClick} >
-              Home
-            </Menu.Item>
+            {
+              headerData.menuItems.map( (menuItem, index) => this.createMenuItem(menuItem, index, activeItem))
+            }
           </Menu.Menu>
         </Menu>
+        {headerData.title}
+        {headerData.subtitle}
       </Container>
     );
   }
@@ -57,13 +71,13 @@ Header.contextTypes = {
 };
 
 Header.propTypes = {
-  header: React.PropTypes.object.isRequired,
+  headerData: React.PropTypes.object.isRequired,
   headerActions: React.PropTypes.object.isRequired
 };
 
 function mapStateToProps(reduxState){
   return {
-    header: reduxState.header
+    headerData: reduxState.header
   };
 }
 
