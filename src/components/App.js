@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Segment } from 'semantic-ui-react';
 
-import { Header } from './common';
+import { Header } from './common/header';
 
 class App extends Component {
   render() {

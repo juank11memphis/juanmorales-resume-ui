@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import { IndexLink } from 'react-router';
 import { Menu, Container, Image } from 'semantic-ui-react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
-import logo from '../../styles/logo.png';
+import logo from '../../../styles/logo.png';
+import * as headerActions from './headerActions';
 
 class Header extends Component {
 
@@ -10,9 +13,16 @@ class Header extends Component {
     activeItem: null
   };
 
+  componentWillMount() {
+    const {loadHeaderData} = this.props.headerActions;
+    loadHeaderData();
+  }
+
   DEFAULT_MENU_ITEM = 'home';
 
-  handleItemClick = (event, { name }) => this.setState({ activeItem: name });
+  handleItemClick = (event, { name }) => {
+    this.setState({ activeItem: name });
+  }
 
   render() {
     let { activeItem } = this.state;
@@ -46,4 +56,22 @@ Header.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
 
-export default Header;
+Header.propTypes = {
+  header: React.PropTypes.object.isRequired,
+  headerActions: React.PropTypes.object.isRequired
+};
+
+function mapStateToProps(reduxState){
+  return {
+    header: reduxState.header
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return {
+    headerActions: bindActionCreators(headerActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
+
