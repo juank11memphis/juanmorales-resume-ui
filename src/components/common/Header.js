@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { IndexLink } from 'react-router';
-import { Menu, Container } from 'semantic-ui-react';
+import { Menu, Container, Image } from 'semantic-ui-react';
+
+import logo from '../../styles/logo.png';
 
 class Header extends Component {
 
@@ -23,6 +25,7 @@ class Header extends Component {
     return (
       <Container>
         <Menu size="large" inverted pointing secondary >
+          <Image src={logo} width="50" height="50" />
           <Menu.Menu position="right">
             <Menu.Item
               as={IndexLink}
