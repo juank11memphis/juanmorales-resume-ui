@@ -24,7 +24,21 @@ module.exports = function() {
         },
         {
           test: /\.scss$/,
-          loaders: ['style-loader', 'css-loader', 'sass-loader'],
+          loaders: [
+            'style-loader',
+            'css-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: function () {
+                  return [
+                    require('autoprefixer')
+                  ];
+                }
+              }
+            },
+            'sass-loader'
+          ],
           exclude: /node_modules/
         },
         {
