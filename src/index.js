@@ -7,7 +7,7 @@ import routes from './core/routes';
 import configureStore from './core/configureStore';
 
 import 'semantic-ui-css/semantic.css';
-import './styles/main.css';
+import './styles/main.scss';
 
 const store = configureStore();
 

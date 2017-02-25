@@ -23,6 +23,11 @@ module.exports = function() {
           loaders: ['style-loader', 'css-loader']
         },
         {
+          test: /\.scss$/,
+          loaders: ['style-loader', 'css-loader', 'sass-loader'],
+          exclude: /node_modules/
+        },
+        {
           test: /\.js$/,
           loaders: ['eslint-loader'],
           enforce: "pre",

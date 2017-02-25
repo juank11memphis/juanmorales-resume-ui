@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import { IndexLink, Link } from 'react-router';
-import { Menu, Container, Image } from 'semantic-ui-react';
+import { Menu, Container, Image, Header } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import logo from '../../../styles/logo.png';
 import * as headerActions from './headerActions';
+import {styles} from './headerStyles';
 
-class Header extends Component {
+class AppHeader extends Component {
 
   state = {
     activeItem: null
@@ -50,7 +51,7 @@ class Header extends Component {
     activeItem = activeItem ? activeItem : this.DEFAULT_MENU_ITEM;
 
     return (
-      <Container>
+      <Container style={styles.mainContainer} >
         <Menu size="large" inverted pointing secondary >
           <Image src={logo} width="50" height="50" />
           <Menu.Menu position="right">
@@ -59,18 +60,22 @@ class Header extends Component {
             }
           </Menu.Menu>
         </Menu>
-        {headerData.title}
-        {headerData.subtitle}
+        <div className="ui middle aligned grid" style={styles.textContainer} >
+          <div className="eight column wide">
+            <Header as="h1" inverted >{headerData.title}</Header>
+            <Header as="h3" inverted >{headerData.subtitle}</Header>
+          </div>
+        </div>
       </Container>
     );
   }
 }
 
-Header.contextTypes = {
+AppHeader.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
 
-Header.propTypes = {
+AppHeader.propTypes = {
   headerData: React.PropTypes.object.isRequired,
   headerActions: React.PropTypes.object.isRequired
 };
@@ -87,5 +92,5 @@ function mapDispatchToProps(dispatch){
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);
 

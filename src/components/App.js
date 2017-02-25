@@ -6,7 +6,7 @@ import { Header } from './common/header';
 class App extends Component {
   render() {
     return (
-      <Segment inverted vertical textAlign="center" >
+      <Segment className="main-container" inverted vertical textAlign="center" >
         <Header />
         {this.props.children}
       </Segment>
