@@ -3,11 +3,13 @@ import { IndexLink, Link } from 'react-router';
 import { Menu, Container, Image, Header } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import Radium from 'radium';
 
 import logo from '../../../styles/logo.png';
 import * as headerActions from './headerActions';
 import {styles} from './headerStyles';
 
+@Radium
 class AppHeader extends Component {
 
   state = {
