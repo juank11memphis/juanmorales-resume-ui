@@ -7,6 +7,9 @@ export default {
   },
 
   skills: {
+    sortBy: '',
+    search: '',
+    categories: [],
     items: []
   }
 
