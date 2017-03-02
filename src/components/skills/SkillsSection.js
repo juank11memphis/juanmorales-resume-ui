@@ -1,41 +1,35 @@
 import React from 'react';
-import { Container } from 'semantic-ui-react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { Container, Header, Dropdown } from 'semantic-ui-react';
 
-import * as skillsActions from './skillsActions';
+import {styles} from './skillsSectionStyles';
 
-class SkillsSection extends React.Component {
+const SkillsSection = (props) => {
 
-  constructor(props, context) {
-    super(props, context);
-  }
+  const {pageData} = props.skills;
 
-  render() {
-    return (
-      <Container >
-        Skills section is gonna be here very very very very soon
+  return (
+    <Container style={styles.mainContainer} >
+      <Header as="h1" textAlign="center" >{pageData.title}</Header>
+      <Container textAlign="center" >
+        <Header
+          as="h2"
+          textAlign="center"
+          style={styles.inlineBlockElement} >
+          {pageData.sortByText}
+        </Header>
+        <Dropdown
+          selection
+          options={pageData.skillsByOptions}
+          style={styles.inlineBlockElement}
+          defaultValue={pageData.skillsByDefaultValue} />
       </Container>
-    );
-  }
+    </Container>
+  );
 
-}
-
-SkillsSection.propTypes = {
-  skills: React.PropTypes.object.isRequired,
-  actions: React.PropTypes.object.isRequired
 };
 
-function mapStateToProps(reduxState){
-  return {
-    skills: reduxState.skills
-  };
-}
+SkillsSection.propTypes = {
+  skills: React.PropTypes.object.isRequired
+};
 
-function mapDispatchToProps(dispatch){
-  return {
-    skillsActions: bindActionCreators(skillsActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SkillsSection);
+export default SkillsSection;

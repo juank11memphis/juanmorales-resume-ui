@@ -3,7 +3,7 @@ import { Container } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import {skillsActions} from '../skills';
+import {skillsActions, SkillsSection} from '../skills';
 
 class HomePage extends React.Component {
 
@@ -13,10 +13,10 @@ class HomePage extends React.Component {
   }
 
   render() {
-    console.log('HomePage -> Render...', this.props.skillsData);
+    const {skills} = this.props;
     return (
       <Container>
-        Home page is gonna be here very very very soon....
+        <SkillsSection skills={skills} />
       </Container>
     );
   }
@@ -24,13 +24,13 @@ class HomePage extends React.Component {
 }
 
 HomePage.propTypes = {
-  skillsData: React.PropTypes.object.isRequired,
+  skills: React.PropTypes.object.isRequired,
   skillsActions: React.PropTypes.object.isRequired,
 };
 
 function mapStateToProps(reduxState){
   return {
-    skillsData: reduxState.skills
+    skills: reduxState.skills
   };
 }
 

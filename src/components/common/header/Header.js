@@ -44,7 +44,7 @@ class AppHeader extends Component {
   };
 
   render() {
-    const {headerData} = this.props;
+    const {headerPageData} = this.props;
     let { activeItem } = this.state;
     if (activeItem === null) {
       activeItem = this.context.router.getCurrentLocation().pathname;
@@ -58,14 +58,14 @@ class AppHeader extends Component {
           <Image src={logo} width="50" height="50" />
           <Menu.Menu position="right">
             {
-              headerData.menuItems.map( (menuItem, index) => this.createMenuItem(menuItem, index, activeItem))
+              headerPageData.menuItems.map( (menuItem, index) => this.createMenuItem(menuItem, index, activeItem))
             }
           </Menu.Menu>
         </Menu>
         <div className="ui middle aligned grid" style={styles.textContainer} >
           <div className="eight column wide">
-            <Header as="h1" inverted >{headerData.title}</Header>
-            <Header as="h3" inverted >{headerData.subtitle}</Header>
+            <Header as="h1" inverted >{headerPageData.title}</Header>
+            <Header as="h3" inverted >{headerPageData.subtitle}</Header>
           </div>
         </div>
       </Container>
@@ -78,13 +78,13 @@ AppHeader.contextTypes = {
 };
 
 AppHeader.propTypes = {
-  headerData: React.PropTypes.object.isRequired,
+  headerPageData: React.PropTypes.object.isRequired,
   headerActions: React.PropTypes.object.isRequired
 };
 
 function mapStateToProps(reduxState){
   return {
-    headerData: reduxState.header
+    headerPageData: reduxState.header.pageData
   };
 }
 

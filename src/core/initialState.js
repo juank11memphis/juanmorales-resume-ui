@@ -1,16 +1,26 @@
 export default {
 
   header: {
-    menuItems: [],
-    title: '',
-    subtitle: ''
+    pageData: {
+      menuItems: [],
+      title: '',
+      subtitle: ''
+    }
   },
 
   skills: {
-    sortBy: '',
-    search: '',
-    categories: [],
-    items: []
+    pageData: {
+      title: '',
+      sortByText: '',
+      skillsByOptions: [],
+      skillsByDefaultValue: 'category'
+    },
+    data: {
+      sortBy: '',
+      search: '',
+      categories: [],
+      items: []
+    }
   }
 
 };
