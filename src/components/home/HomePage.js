@@ -7,7 +7,16 @@ import {skillsActions, SkillsSection} from '../skills';
 
 class HomePage extends React.Component {
 
+  constructor(props, context) {
+    super(props, context);
+    this.loadSkillsData = this.loadSkillsData.bind(this);
+  }
+
   componentWillMount() {
+    this.loadSkillsData();
+  }
+
+  loadSkillsData() {
     const {skillsActions} = this.props;
     skillsActions.loadSkillsData();
   }

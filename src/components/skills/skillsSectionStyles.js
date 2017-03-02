@@ -7,6 +7,10 @@ export const styles = {
   inlineBlockElement: {
     display: 'inline-block',
     marginRight: '10px'
+  },
+
+  optionsContainer: {
+    marginTop: '20px'
   }
 
 };

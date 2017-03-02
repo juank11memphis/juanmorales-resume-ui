@@ -16,9 +16,7 @@ export default {
       skillsByDefaultValue: 'category'
     },
     data: {
-      sortBy: '',
-      search: '',
-      categories: [],
+      options: {},
       items: []
     }
   }
