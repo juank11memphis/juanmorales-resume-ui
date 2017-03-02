@@ -3,6 +3,7 @@ import { Container, Header, Dropdown } from 'semantic-ui-react';
 
 import {styles} from './skillsSectionStyles';
 import SkillsOptionsMenu from './SkillsOptionsMenu';
+import SkillsList from './SkillsList';
 
 class SkillsSection extends React.Component {
 
@@ -10,12 +11,40 @@ class SkillsSection extends React.Component {
     super(props, context);
     this.state = {};
     this.onSkillsByChange = this.onSkillsByChange.bind(this);
+    this.onSkillsOptionsMenuChange = this.onSkillsOptionsMenuChange.bind(this);
+    this.getFilteredSkillsList = this.getFilteredSkillsList.bind(this);
   }
 
   onSkillsByChange(event, data) {
     this.setState({
-      selectedSkillsBy: data.value
+      selectedSkillsBy: data.value,
+      selectedSkillMenuOption: null
     });
+  }
+
+  onSkillsOptionsMenuChange(skillMenuOption) {
+    this.setState({
+      selectedSkillMenuOption: skillMenuOption
+    });
+  }
+
+  getFilteredSkillsList() {
+    const {pageData, data} = this.props.skills;
+    const {skillsByDefaultValue} = pageData;
+    let {selectedSkillsBy, selectedSkillMenuOption} = this.state;
+    const skillsBy = selectedSkillsBy ? selectedSkillsBy : skillsByDefaultValue;
+    const options = data.options[skillsBy];
+    if (!skillsBy || !options) {
+      return [];
+    }
+    if (!selectedSkillMenuOption) {
+      selectedSkillMenuOption = options[0].value;
+    }
+    let filteredItems = data.items.filter( item => {
+      const filterPropValue = item[skillsBy];
+      return filterPropValue === selectedSkillMenuOption;
+    });
+    return filteredItems.sort( (item, nextItem) => nextItem.expertiseValue - item.expertiseValue);
   }
 
   render(){
@@ -25,7 +54,7 @@ class SkillsSection extends React.Component {
     options = options ? options : [];
 
     return (
-      <Container style={styles.mainContainer} >
+      <Container style={styles.containerWithMarginTop} >
         <Header as="h1" textAlign="center" >{pageData.title}</Header>
         <Container textAlign="center" >
           <Header
@@ -41,8 +70,9 @@ class SkillsSection extends React.Component {
             defaultValue={pageData.skillsByDefaultValue}
             onChange={this.onSkillsByChange} />
         </Container>
-        <Container textAlign="center" style={styles.optionsContainer} >
-          <SkillsOptionsMenu options={options} />
+        <Container textAlign="center" style={styles.containerWithMarginTop} >
+          <SkillsOptionsMenu options={options} onChange={this.onSkillsOptionsMenuChange} />
+          <SkillsList items={this.getFilteredSkillsList()} />
         </Container>
       </Container>
     );

@@ -11,12 +11,14 @@ class SkillsOptionsMenu extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.options !== nextProps.options) {
-      this.setState({ activeItem: null });
+      const activeItem = nextProps.options.length > 0 ? nextProps.options[0].value : null;
+      this.setState({ activeItem: activeItem });
     }
   }
 
   handleItemClick(e, { name }) {
     this.setState({ activeItem: name });
+    this.props.onChange(name);
   }
 
   createMenuItem = (optionItem, index, activeItem) => {
@@ -35,7 +37,6 @@ class SkillsOptionsMenu extends Component {
   render() {
     const {options} = this.props;
     let { activeItem } = this.state;
-    activeItem = activeItem ? activeItem : (options.length > 0 ? options[0].value : null );
 
     return (
       <Menu compact >
@@ -48,7 +49,8 @@ class SkillsOptionsMenu extends Component {
 }
 
 SkillsOptionsMenu.propTypes = {
-  options: React.PropTypes.array.isRequired
+  options: React.PropTypes.array.isRequired,
+  onChange: React.PropTypes.func.isRequired
 };
 
 export default SkillsOptionsMenu;

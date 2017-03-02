@@ -1,7 +1,7 @@
 export const styles = {
 
-  mainContainer: {
-    marginTop: '10px'
+  containerWithMarginTop: {
+    marginTop: '20px'
   },
 
   inlineBlockElement: {
@@ -9,8 +9,9 @@ export const styles = {
     marginRight: '10px'
   },
 
-  optionsContainer: {
-    marginTop: '20px'
+  skillsListRow: {
+    paddingTop: '0',
+    paddingBottom: '0'
   }
 
 };
