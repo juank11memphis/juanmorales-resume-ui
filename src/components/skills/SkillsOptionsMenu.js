@@ -5,7 +5,11 @@ class SkillsOptionsMenu extends Component {
 
   constructor(props, context){
     super(props, context);
-    this.state = { activeItem: null };
+    if (this.props.options.length > 0) {
+      this.state = { activeItem: this.props.options[0].value };
+    } else {
+      this.state = { activeItem: null };
+    }
     this.handleItemClick = this.handleItemClick.bind(this);
   }
 

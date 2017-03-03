@@ -11,7 +11,6 @@ export default {
   skills: {
     pageData: {
       title: '',
-      sortByText: '',
       skillsByOptions: [],
       skillsByDefaultValue: 'category'
     },

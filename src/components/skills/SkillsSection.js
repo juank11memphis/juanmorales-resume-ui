@@ -4,22 +4,25 @@ import { Container, Header, Dropdown } from 'semantic-ui-react';
 import {styles} from './skillsSectionStyles';
 import SkillsOptionsMenu from './SkillsOptionsMenu';
 import SkillsList from './SkillsList';
+import {SearchInput} from '../common/searchinput';
 
 class SkillsSection extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    this.state = {};
+    this.state = { isSearching: false };
     this.onSkillsByChange = this.onSkillsByChange.bind(this);
     this.onSkillsOptionsMenuChange = this.onSkillsOptionsMenuChange.bind(this);
-    this.getFilteredSkillsList = this.getFilteredSkillsList.bind(this);
+    this.onSearch = this.onSearch.bind(this);
   }
 
   onSkillsByChange(event, data) {
     this.setState({
       selectedSkillsBy: data.value,
-      selectedSkillMenuOption: null
+      selectedSkillMenuOption: null,
+      isSearching: false
     });
+    this.refs.inputSearch.clear();
   }
 
   onSkillsOptionsMenuChange(skillMenuOption) {
@@ -28,18 +31,46 @@ class SkillsSection extends React.Component {
     });
   }
 
+  onSearch(searchText) {
+    if (searchText && searchText.length > 0) {
+      this.setState({ isSearching: true, searchText });
+    } else {
+      this.setState({ isSearching: false, selectedSkillMenuOption: null });
+    }
+  }
+
+  getSkillsByValue() {
+    const {pageData} = this.props.skills;
+    let {selectedSkillsBy} = this.state;
+    const skillsBy = selectedSkillsBy ? selectedSkillsBy : pageData.skillsByDefaultValue;
+    return skillsBy;
+  }
+
+  getSelectedSkillsMenuOption(menuOptions) {
+    let {selectedSkillMenuOption} = this.state;
+    if (!selectedSkillMenuOption) {
+      return menuOptions[0].value;
+    }
+    return selectedSkillMenuOption;
+  }
+
+  getSkillsList() {
+    const {isSearching} = this.state;
+    if (isSearching) {
+      return this.getSkillsListBySearchText();
+    } else {
+      return this.getFilteredSkillsList();
+    }
+  }
+
   getFilteredSkillsList() {
-    const {pageData, data} = this.props.skills;
-    const {skillsByDefaultValue} = pageData;
-    let {selectedSkillsBy, selectedSkillMenuOption} = this.state;
-    const skillsBy = selectedSkillsBy ? selectedSkillsBy : skillsByDefaultValue;
+    const {data} = this.props.skills;
+    const skillsBy = this.getSkillsByValue();
     const options = data.options[skillsBy];
     if (!skillsBy || !options) {
       return [];
     }
-    if (!selectedSkillMenuOption) {
-      selectedSkillMenuOption = options[0].value;
-    }
+    const selectedSkillMenuOption = this.getSelectedSkillsMenuOption(options);
     let filteredItems = data.items.filter( item => {
       const filterPropValue = item[skillsBy];
       return filterPropValue === selectedSkillMenuOption;
@@ -47,21 +78,30 @@ class SkillsSection extends React.Component {
     return filteredItems.sort( (item, nextItem) => nextItem.expertiseValue - item.expertiseValue);
   }
 
+  getSkillsListBySearchText() {
+    const {data} = this.props.skills;
+    const {searchText} = this.state;
+    return data.items.filter( item => {
+      const name = item.name.toLowerCase();
+      const search = searchText.toLowerCase();
+      return name.search(search) > -1;
+    });
+  }
+
   render(){
     const {pageData, data} = this.props.skills;
-    const {selectedSkillsBy} = this.state;
+    const {selectedSkillsBy, isSearching} = this.state;
     let options = selectedSkillsBy ? data.options[selectedSkillsBy] : data.options[pageData.skillsByDefaultValue];
     options = options ? options : [];
 
     return (
       <Container style={styles.containerWithMarginTop} >
-        <Header as="h1" textAlign="center" >{pageData.title}</Header>
         <Container textAlign="center" >
           <Header
-            as="h2"
-            textAlign="center"
-            style={styles.inlineBlockElement} >
-            {pageData.sortByText}
+            as="h1"
+            style={styles.inlineBlockElement}
+            textAlign="center" >
+            {pageData.title}
           </Header>
           <Dropdown
             selection
@@ -69,10 +109,14 @@ class SkillsSection extends React.Component {
             style={styles.inlineBlockElement}
             defaultValue={pageData.skillsByDefaultValue}
             onChange={this.onSkillsByChange} />
+          <SearchInput
+            ref="inputSearch"
+            onSearch={this.onSearch}
+            style={styles.inlineBlockElement} />
         </Container>
         <Container textAlign="center" style={styles.containerWithMarginTop} >
-          <SkillsOptionsMenu options={options} onChange={this.onSkillsOptionsMenuChange} />
-          <SkillsList items={this.getFilteredSkillsList()} />
+          {!isSearching && <SkillsOptionsMenu options={options} onChange={this.onSkillsOptionsMenuChange} />}
+          <SkillsList items={this.getSkillsList()} />
         </Container>
       </Container>
     );
