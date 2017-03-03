@@ -13,12 +13,12 @@ const SkillsList = (props) => {
         items.map( (item, index) => {
           return (
             <Grid.Row style={styles.skillsListRow} key={index} >
-              <Grid.Column width={6}>
+              <Grid.Column width={5}>
                 <Header as="h3">
                   {item.name}
                 </Header>
               </Grid.Column>
-              <Grid.Column width={10}>
+              <Grid.Column width={11}>
                 <Progress percent={item.expertiseValue * 20} success />
               </Grid.Column>
             </Grid.Row>
