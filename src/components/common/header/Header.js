@@ -6,7 +6,7 @@ import {bindActionCreators} from 'redux';
 
 import logo from '../../../styles/logo.png';
 import * as headerActions from './headerActions';
-import {styles} from './headerStyles';
+import commonStyles from '../../common/styles';
 
 class AppHeader extends Component {
 
@@ -51,7 +51,7 @@ class AppHeader extends Component {
     activeItem = activeItem ? activeItem : this.DEFAULT_MENU_ITEM;
 
     return (
-      <Container style={styles.mainContainer} >
+      <Container style={commonStyles.size(null, 454)} >
         <Menu size="large" inverted pointing secondary >
           <Image src={logo} width="50" height="50" />
           <Menu.Menu position="right">
@@ -60,7 +60,7 @@ class AppHeader extends Component {
             }
           </Menu.Menu>
         </Menu>
-        <div className="ui middle aligned grid" style={styles.textContainer} >
+        <div className="ui middle aligned grid" style={commonStyles.size(null, 400)} >
           <div className="eight column wide">
             <Header as="h1" inverted >{headerPageData.title}</Header>
             <Header as="h3" inverted >{headerPageData.subtitle}</Header>

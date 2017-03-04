@@ -11,6 +11,7 @@ export default {
   skills: {
     pageData: {
       title: '',
+      skillsByText: '',
       skillsByOptions: [],
       skillsByDefaultValue: 'category'
     },
@@ -18,6 +19,13 @@ export default {
       options: {},
       items: []
     }
+  },
+
+  experience: {
+    pageData: {
+      title: ''
+    },
+    data: []
   }
 
 };

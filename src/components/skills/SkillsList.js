@@ -1,14 +1,14 @@
 import React from 'react';
 import {Progress, Header, Grid} from 'semantic-ui-react';
 
-import {styles} from './skillsSectionStyles';
+import commonStyles from '../common/styles';
 
 const SkillsList = (props) => {
 
   const {items} = props;
 
   const renderGridRow = (item, index) => (
-      <Grid.Row style={styles.skillsListRow} key={index} >
+      <Grid.Row style={commonStyles.paddingAll(0)} key={index} >
         <Grid.Column width={5}>
           <Header as="h3">
             {item.name}
@@ -21,7 +21,7 @@ const SkillsList = (props) => {
   );
 
   return (
-    <Grid style={styles.containerWithMarginTop} >
+    <Grid style={commonStyles.margin(20)} >
       {
         items.map( (item, index) => renderGridRow(item, index))
       }

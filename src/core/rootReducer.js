@@ -1,10 +1,12 @@
 import {combineReducers} from 'redux';
-import {skillsReducer} from '../components/skills';
 import {headerReducer} from '../components/common/header';
+import {skillsReducer} from '../components/skills';
+import {experienceReducer} from '../components/experience';
 
 const rootReducer = combineReducers({
   skills: skillsReducer,
-  header: headerReducer
+  header: headerReducer,
+  experience: experienceReducer
 });
 
 export default rootReducer;

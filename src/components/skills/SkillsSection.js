@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Header, Dropdown } from 'semantic-ui-react';
 
-import {styles} from './skillsSectionStyles';
+import commonStyles from '../common/styles';
 import SkillsOptionsMenu from './SkillsOptionsMenu';
 import SkillsList from './SkillsList';
 import {SearchInput} from '../common/searchinput';
@@ -95,26 +95,31 @@ class SkillsSection extends React.Component {
     options = options ? options : [];
 
     return (
-      <Container style={styles.containerWithMarginTop} >
+      <Container style={commonStyles.margin(20)} >
         <Container textAlign="center" >
           <Header
             as="h1"
-            style={styles.inlineBlockElement}
             textAlign="center" >
             {pageData.title}
+          </Header>
+          <Header
+            as="h2"
+            style={commonStyles.inlineBlockElement}
+            textAlign="center" >
+            {pageData.skillsByText}
           </Header>
           <Dropdown
             selection
             options={pageData.skillsByOptions}
-            style={styles.inlineBlockElement}
+            style={commonStyles.inlineBlockElement}
             defaultValue={pageData.skillsByDefaultValue}
             onChange={this.onSkillsByChange} />
           <SearchInput
             ref="inputSearch"
             onSearch={this.onSearch}
-            style={styles.inlineBlockElement} />
+            style={commonStyles.inlineBlockElement} />
         </Container>
-        <Container textAlign="center" style={styles.containerWithMarginTop} >
+        <Container textAlign="center" style={commonStyles.margin(20)} >
           {!isSearching && <SkillsOptionsMenu options={options} onChange={this.onSkillsOptionsMenuChange} />}
           <SkillsList items={this.getSkillsList()} />
         </Container>

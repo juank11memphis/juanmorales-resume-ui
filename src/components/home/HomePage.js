@@ -4,16 +4,13 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import {skillsActions, SkillsSection} from '../skills';
+import {experienceActions, ExperienceSection} from '../experience';
 
 class HomePage extends React.Component {
 
-  constructor(props, context) {
-    super(props, context);
-    this.loadSkillsData = this.loadSkillsData.bind(this);
-  }
-
   componentWillMount() {
     this.loadSkillsData();
+    this.loadExperienceData();
   }
 
   loadSkillsData() {
@@ -21,11 +18,17 @@ class HomePage extends React.Component {
     skillsActions.loadSkillsData();
   }
 
+  loadExperienceData() {
+    const {experienceActions} = this.props;
+    experienceActions.loadExperienceData();
+  }
+
   render() {
-    const {skills} = this.props;
+    const {skills, experience} = this.props;
     return (
       <Container>
         <SkillsSection skills={skills} />
+        <ExperienceSection experience={experience} />
       </Container>
     );
   }
@@ -35,17 +38,21 @@ class HomePage extends React.Component {
 HomePage.propTypes = {
   skills: React.PropTypes.object.isRequired,
   skillsActions: React.PropTypes.object.isRequired,
+  experience: React.PropTypes.object.isRequired,
+  experienceActions: React.PropTypes.object.isRequired
 };
 
 function mapStateToProps(reduxState){
   return {
-    skills: reduxState.skills
+    skills: reduxState.skills,
+    experience: reduxState.experience
   };
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    skillsActions: bindActionCreators(skillsActions, dispatch)
+    skillsActions: bindActionCreators(skillsActions, dispatch),
+    experienceActions: bindActionCreators(experienceActions, dispatch)
   };
 }
 
