@@ -4,7 +4,9 @@ import initialState from '../../core/initialState';
 export default function experienceReducer(state = initialState.experience, action) {
   switch (action.type) {
     case types.LOAD_EXPERIENCE_DATA_SUCCESS:
-      return Object.assign({}, state, action.experienceData);
+      return Object.assign({}, state, {
+        data: action.experienceData
+      });
     default:
       return state;
   }

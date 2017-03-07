@@ -12,29 +12,16 @@ class ExperienceSection extends React.Component {
     this.handleItemClick = this.handleItemClick.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.experience === nextProps.experience) {
-      return;
-    }
-    const {data} = nextProps.experience;
-    if (data && data.length > 0) {
-      this.setState({
-        activeItem: data[0]
-      });
-    }
-  }
-
   handleItemClick(experienceItem) {
     this.setState({ activeItem: experienceItem });
   }
 
-  createMenuItem(experienceItem, index) {
+  createMenuItem(experienceItem, index, activeItem) {
     const yearsText = experienceItem.years > 1 ? ' years' : ' year';
     const menuItemEl = (
       <Menu.Item
         key={index}
-        name={experienceItem.id+''}
-        active={this.state.activeItem.id === experienceItem.id}
+        active={activeItem.id === experienceItem.id}
         onClick={() => this.handleItemClick(experienceItem)} >
         {experienceItem.companyName + '\n' + experienceItem.years + yearsText}
       </Menu.Item>
@@ -42,9 +29,19 @@ class ExperienceSection extends React.Component {
     return menuItemEl;
   }
 
-  render(){
-    const {pageData, data} = this.props.experience;
+  getActiveItem() {
     const {activeItem} = this.state;
+    return activeItem ? activeItem : this.getFirstItem();
+  }
+
+  getFirstItem() {
+    const {data} = this.props;
+    return (data && data.length > 0) ? data[0] : null;
+  }
+
+  render(){
+    const {pageData, data} = this.props;
+    const activeItem = this.getActiveItem();
     return (
       <Container style={commonStyles.margin(20)} >
         <Header
@@ -56,14 +53,14 @@ class ExperienceSection extends React.Component {
           <Grid.Column width={4}>
             <Menu fluid vertical tabular>
               {
-                data && data.map( (experienceItem, index) => this.createMenuItem(experienceItem, index))
+                data && data.map( (experienceItem, index) => this.createMenuItem(experienceItem, index, activeItem))
               }
             </Menu>
           </Grid.Column>
 
           <Grid.Column stretched width={12}>
             <Segment>
-              {activeItem && <ExperienceDetail item={activeItem} />}
+              { activeItem && <ExperienceDetail item={activeItem} />}
             </Segment>
           </Grid.Column>
         </Grid>
@@ -73,8 +70,14 @@ class ExperienceSection extends React.Component {
 
 }
 
+ExperienceSection.defaultProps = {
+  pageData: {},
+  data: []
+};
+
 ExperienceSection.propTypes = {
-  experience: React.PropTypes.object.isRequired
+  pageData: React.PropTypes.object.isRequired,
+  data: React.PropTypes.array.isRequired
 };
 
 export default ExperienceSection;

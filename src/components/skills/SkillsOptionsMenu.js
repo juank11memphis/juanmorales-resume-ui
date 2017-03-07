@@ -5,42 +5,48 @@ class SkillsOptionsMenu extends Component {
 
   constructor(props, context){
     super(props, context);
-    if (this.props.options.length > 0) {
-      this.state = { activeItem: this.props.options[0].value };
-    } else {
-      this.state = { activeItem: null };
-    }
+    this.state = {
+      activeItem: null
+    };
     this.handleItemClick = this.handleItemClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.options !== nextProps.options) {
-      const activeItem = nextProps.options.length > 0 ? nextProps.options[0].value : null;
-      this.setState({ activeItem: activeItem });
+      this.setState({activeItem: null});
     }
   }
 
-  handleItemClick(e, { name }) {
-    this.setState({ activeItem: name });
-    this.props.onChange(name);
+  handleItemClick(optionItem) {
+    this.setState({ activeItem: optionItem });
+    this.props.onChange(optionItem.value);
   }
 
   createMenuItem = (optionItem, index, activeItem) => {
     const menuItemEl = (
       <Menu.Item
         key={index}
-        name={optionItem.value}
-        active={activeItem === optionItem.value}
-        onClick={this.handleItemClick} >
+        active={activeItem === optionItem}
+        onClick={() => this.handleItemClick(optionItem)} >
         {optionItem.text}
       </Menu.Item>
     );
     return menuItemEl;
   };
 
+  getActiveItem() {
+    const {activeItem} = this.state;
+    return activeItem ? activeItem : this.getFirstItem();
+  }
+
+  getFirstItem() {
+    const {options} = this.props;
+    return (options && options.length > 0) ? options[0] : null;
+  }
+
   render() {
     const {options} = this.props;
-    let { activeItem } = this.state;
+    let activeItem = this.getActiveItem();
 
     return (
       <Menu compact >
@@ -51,6 +57,10 @@ class SkillsOptionsMenu extends Component {
     );
   }
 }
+
+SkillsOptionsMenu.defaultProps = {
+  options: null
+};
 
 SkillsOptionsMenu.propTypes = {
   options: React.PropTypes.array.isRequired,

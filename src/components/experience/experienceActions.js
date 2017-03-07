@@ -9,7 +9,7 @@ export function loadExperienceData() {
   return (dispatch) => {
     return fetch(getFetchUrl())
       .then(response => response.json())
-      .then(experienceData => dispatch(loadExperienceDataSuccess(experienceData.result[0])));
+      .then(experienceData => dispatch(loadExperienceDataSuccess(experienceData.result)));
   };
 }
 

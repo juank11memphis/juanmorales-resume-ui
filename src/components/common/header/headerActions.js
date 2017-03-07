@@ -1,21 +1,21 @@
 import * as types from './headerActionTypes';
 import {AjaxUtil} from '../../../util';
 
-function getFetchUrl(){
-  return AjaxUtil.BASE_URL + 'header';
+function getPageDataFetchUrl(){
+  return AjaxUtil.BASE_URL + 'header/pagedata';
 }
 
-export function loadHeaderData() {
+export function loadPageData() {
   return (dispatch) => {
-    return fetch(getFetchUrl())
+    return fetch(getPageDataFetchUrl())
       .then(response => response.json())
-      .then(headerData => dispatch(loadHeaderDataSuccess(headerData.result[0])));
+      .then(headerPageData => dispatch(loadPageDataSuccess(headerPageData.result[0])));
   };
 }
 
-export function loadHeaderDataSuccess(headerData) {
+export function loadPageDataSuccess(headerPageData) {
   return {
-    type: types.LOAD_HEADER_DATA_SUCCESS,
-    headerData
+    type: types.LOAD_PAGE_DATA_SUCCESS,
+    headerPageData
   };
 }

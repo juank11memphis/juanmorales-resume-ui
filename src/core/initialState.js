@@ -8,13 +8,20 @@ export default {
     }
   },
 
-  skills: {
+  home: {
     pageData: {
-      title: '',
-      skillsByText: '',
-      skillsByOptions: [],
-      skillsByDefaultValue: 'category'
-    },
+      skills: {
+        title: '',
+        skillsByText: '',
+        skillsByOptions: []
+      },
+      experience: {
+        title: ''
+      }
+    }
+  },
+
+  skills: {
     data: {
       options: {},
       items: []
@@ -22,9 +29,6 @@ export default {
   },
 
   experience: {
-    pageData: {
-      title: ''
-    },
     data: []
   }
 

@@ -10,48 +10,70 @@ class SkillsSection extends React.Component {
 
   constructor(props, context) {
     super(props, context);
-    this.state = { isSearching: false };
+    this.state = {
+      isSearching: false,
+      selectedSkillsBy: null,
+      selectedSkillMenuOption: null
+    };
     this.onSkillsByChange = this.onSkillsByChange.bind(this);
     this.onSkillsOptionsMenuChange = this.onSkillsOptionsMenuChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
   }
 
-  onSkillsByChange(event, data) {
+  onSkillsByChange(event, {value}) {
     this.setState({
-      selectedSkillsBy: data.value,
-      selectedSkillMenuOption: null,
+      selectedSkillsBy: value,
+      selectedSkillMenuOption: this.getFirstSkillsMenuOption(value),
       isSearching: false
     });
     this.refs.inputSearch.clear();
   }
 
-  onSkillsOptionsMenuChange(skillMenuOption) {
+  onSkillsOptionsMenuChange(skillMenuOptionValue) {
     this.setState({
-      selectedSkillMenuOption: skillMenuOption
+      selectedSkillMenuOption: skillMenuOptionValue
     });
   }
 
   onSearch(searchText) {
+    const selectedSkillsBy = this.getSelectedSkillsBy();
     if (searchText && searchText.length > 0) {
       this.setState({ isSearching: true, searchText });
     } else {
-      this.setState({ isSearching: false, selectedSkillMenuOption: null });
+      this.setState({
+        isSearching: false,
+        selectedSkillMenuOption: this.getFirstSkillsMenuOption(selectedSkillsBy)
+      });
     }
   }
 
-  getSkillsByValue() {
-    const {pageData} = this.props.skills;
-    let {selectedSkillsBy} = this.state;
-    const skillsBy = selectedSkillsBy ? selectedSkillsBy : pageData.skillsByDefaultValue;
-    return skillsBy;
+  getSelectedSkillsBy() {
+    const {selectedSkillsBy} = this.state;
+    return selectedSkillsBy ? selectedSkillsBy : this.getFirstSkillsByItem();
   }
 
-  getSelectedSkillsMenuOption(menuOptions) {
-    let {selectedSkillMenuOption} = this.state;
-    if (!selectedSkillMenuOption) {
-      return menuOptions[0].value;
-    }
-    return selectedSkillMenuOption;
+  getFirstSkillsByItem() {
+    const {pageData} = this.props;
+    const {skillsByOptions} = pageData;
+    return (skillsByOptions && skillsByOptions.length > 0) ? skillsByOptions[0].value : null;
+  }
+
+  getSelectedSkillMenuOption() {
+    const {selectedSkillMenuOption} = this.state;
+    return selectedSkillMenuOption ? selectedSkillMenuOption : this.getFirstSkillsMenuOption();
+  }
+
+  getFirstSkillsMenuOption(selectedSkillsBy) {
+    selectedSkillsBy = selectedSkillsBy ? selectedSkillsBy : this.getSelectedSkillsBy();
+    const {data} = this.props;
+    const menuOptions = data.options[selectedSkillsBy];
+    return menuOptions[0].value;
+  }
+
+  getSkillsMenuOptions() {
+    const {data} = this.props;
+    const selectedSkillsBy = this.getSelectedSkillsBy();
+    return data.options[selectedSkillsBy] || [];
   }
 
   getSkillsList() {
@@ -64,22 +86,22 @@ class SkillsSection extends React.Component {
   }
 
   getFilteredSkillsList() {
-    const {data} = this.props.skills;
-    const skillsBy = this.getSkillsByValue();
-    const options = data.options[skillsBy];
-    if (!skillsBy || !options) {
+    const {data} = this.props;
+    const selectedSkillsBy = this.getSelectedSkillsBy();
+    const options = data.options[selectedSkillsBy];
+    if (!options) {
       return [];
     }
-    const selectedSkillMenuOption = this.getSelectedSkillsMenuOption(options);
+    const selectedSkillMenuOption = this.getSelectedSkillMenuOption();
     let filteredItems = data.items.filter( item => {
-      const filterPropValue = item[skillsBy];
+      const filterPropValue = item[selectedSkillsBy];
       return filterPropValue === selectedSkillMenuOption;
     });
     return filteredItems.sort( (item, nextItem) => nextItem.expertiseValue - item.expertiseValue);
   }
 
   getSkillsListBySearchText() {
-    const {data} = this.props.skills;
+    const {data} = this.props;
     const {searchText} = this.state;
     return data.items.filter( item => {
       const name = item.name.toLowerCase();
@@ -89,10 +111,9 @@ class SkillsSection extends React.Component {
   }
 
   render(){
-    const {pageData, data} = this.props.skills;
-    const {selectedSkillsBy, isSearching} = this.state;
-    let options = selectedSkillsBy ? data.options[selectedSkillsBy] : data.options[pageData.skillsByDefaultValue];
-    options = options ? options : [];
+    const {pageData} = this.props;
+    const {isSearching} = this.state;
+    let skillsMenuOptions = this.getSkillsMenuOptions();
 
     return (
       <Container style={commonStyles.margin(20)} >
@@ -112,7 +133,7 @@ class SkillsSection extends React.Component {
             selection
             options={pageData.skillsByOptions}
             style={commonStyles.inlineBlockElement}
-            defaultValue={pageData.skillsByDefaultValue}
+            defaultValue="category"
             onChange={this.onSkillsByChange} />
           <SearchInput
             ref="inputSearch"
@@ -120,7 +141,10 @@ class SkillsSection extends React.Component {
             style={commonStyles.inlineBlockElement} />
         </Container>
         <Container textAlign="center" style={commonStyles.margin(20)} >
-          {!isSearching && <SkillsOptionsMenu options={options} onChange={this.onSkillsOptionsMenuChange} />}
+          {
+            (!isSearching && skillsMenuOptions && skillsMenuOptions.length > 0) &&
+              <SkillsOptionsMenu options={skillsMenuOptions} onChange={this.onSkillsOptionsMenuChange} />
+          }
           <SkillsList items={this.getSkillsList()} />
         </Container>
       </Container>
@@ -129,8 +153,14 @@ class SkillsSection extends React.Component {
 
 }
 
+SkillsSection.defaultProps = {
+  pageData: {},
+  data: {}
+};
+
 SkillsSection.propTypes = {
-  skills: React.PropTypes.object.isRequired
+  pageData: React.PropTypes.object.isRequired,
+  data: React.PropTypes.object.isRequired
 };
 
 export default SkillsSection;
