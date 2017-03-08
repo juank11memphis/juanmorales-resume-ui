@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Header } from 'semantic-ui-react';
+import { Container, Header, Card, Label } from 'semantic-ui-react';
 
 import commonStyles from '../common/styles';
 
@@ -9,9 +9,39 @@ class ProjectsSection extends React.Component {
     super(props, context);
   }
 
+  createProjectCard(projectItem, index) {
+    const {onViewMore} = this.props;
+
+    const createTechnologyLabel = (techItem, index) => {
+      return (
+        <Label
+          key={index}
+          style={commonStyles.margin(0, 0, 5, 0)}
+          color="teal" >
+          {techItem}
+        </Label>
+      );
+    };
+
+    return (
+      <Card key={index} link onClick={onViewMore} centered >
+        <Card.Content style={commonStyles.minMaxHeight(70, 70)} >
+          <Card.Header>{projectItem.name}</Card.Header>
+          <Card.Meta>Role: {projectItem.role}</Card.Meta>
+        </Card.Content>
+        <Card.Content>
+          <Card.Description>{projectItem.description}</Card.Description>
+          <br />
+          {
+            projectItem.technologies.map( (techItem, index) => createTechnologyLabel(techItem, index) )
+          }
+        </Card.Content>
+      </Card>
+    );
+  }
+
   render(){
     const {pageData, data, onViewMore} = this.props;
-    console.log('Projects Section render...', data);
     return (
       <Container style={commonStyles.margin(20)} >
         <Header
@@ -19,6 +49,11 @@ class ProjectsSection extends React.Component {
           textAlign="center" >
           {pageData.title}
         </Header>
+        <Card.Group>
+          {
+            data && data.map( (projectItem, index) => this.createProjectCard(projectItem, index))
+          }
+        </Card.Group>
         <Header
           as="h3"
           textAlign="center"
@@ -31,6 +66,10 @@ class ProjectsSection extends React.Component {
   }
 
 }
+
+ProjectsSection.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
 
 ProjectsSection.defaultProps = {
   pageData: {},

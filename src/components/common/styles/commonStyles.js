@@ -37,6 +37,13 @@ export const styles = {
     return styleObj;
   },
 
+  minMaxHeight: (min, max) => {
+    let styleObj = {};
+    min && (styleObj.minHeight = min + 'px');
+    max && (styleObj.maxHeight = max + 'px');
+    return styleObj;
+  },
+
   inlineBlockElement: {
     display: 'inline-block',
     marginRight: '10px'
