@@ -10,13 +10,21 @@ import commonStyles from '../../common/styles';
 
 class AppHeader extends Component {
 
-  state = {
-    activeItem: null
-  };
+  constructor(props, context) {
+    super(props, context);
+    this.state = { activeItem: null };
+    this.useActiveItemFromPageData = false;
+  }
 
   componentWillMount() {
     const {headerActions} = this.props;
     headerActions.loadPageData();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if ( nextProps.pageData.activeItem ) {
+      this.useActiveItemFromPageData = true;
+    }
   }
 
   DEFAULT_MENU_ITEM = 'home';
@@ -44,6 +52,10 @@ class AppHeader extends Component {
   render() {
     const {pageData} = this.props;
     let { activeItem } = this.state;
+    if (this.useActiveItemFromPageData && pageData.activeItem) {
+      activeItem = pageData.activeItem;
+      this.useActiveItemFromPageData = false;
+    }
     if (activeItem === null) {
       activeItem = this.context.router.getCurrentLocation().pathname;
       activeItem = activeItem.substring(1, activeItem.length);

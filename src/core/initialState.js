@@ -4,7 +4,8 @@ export default {
     pageData: {
       menuItems: [],
       title: '',
-      subtitle: ''
+      subtitle: '',
+      activeItem: null
     }
   },
 
@@ -17,6 +18,10 @@ export default {
       },
       experience: {
         title: ''
+      },
+      projects: {
+        title: '',
+        viewMoreText: ''
       }
     }
   },

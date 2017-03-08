@@ -40,6 +40,12 @@ export const styles = {
   inlineBlockElement: {
     display: 'inline-block',
     marginRight: '10px'
+  },
+
+  link: {
+    cursor: 'pointer',
+    textDecoration: 'underline',
+    color: '#214887'
   }
 
 };
