@@ -22,6 +22,9 @@ export default {
       projects: {
         title: '',
         viewMoreText: ''
+      },
+      education: {
+        title: '',
       }
     }
   },
@@ -39,6 +42,10 @@ export default {
 
   projects: {
     featured: [],
+    data: []
+  },
+
+  education: {
     data: []
   }
 

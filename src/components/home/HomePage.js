@@ -8,6 +8,7 @@ import {homeActions} from '../home';
 import {skillsActions, SkillsSection} from '../skills';
 import {experienceActions, ExperienceSection} from '../experience';
 import {ProjectsSection, projectsActions} from '../projects';
+import {EducationSection, educationActions} from '../education';
 
 class HomePage extends React.Component {
 
@@ -21,6 +22,7 @@ class HomePage extends React.Component {
     this.loadSkillsData();
     this.loadExperienceData();
     this.loadProjectsData();
+    this.loadEducationData();
   }
 
   loadPageData() {
@@ -43,6 +45,11 @@ class HomePage extends React.Component {
     projectsActions.loadFeaturedProjectsData();
   }
 
+  loadEducationData() {
+    const {educationActions} = this.props;
+    educationActions.loadEducationData();
+  }
+
   onViewMore() {
     const {headerActions} = this.props;
     const path = 'projects';
@@ -55,13 +62,15 @@ class HomePage extends React.Component {
       skillsData,
       experienceData,
       pageData,
-      featuredProjectsData
+      featuredProjectsData,
+      educationData
     } = this.props;
     return (
       <Container>
         <SkillsSection data={skillsData} pageData={pageData.skills} />
         <ExperienceSection data={experienceData} pageData={pageData.experience} />
         <ProjectsSection data={featuredProjectsData} pageData={pageData.projects} onViewMore={this.onViewMore} />
+        <EducationSection data={educationData} pageData={pageData.education} />
       </Container>
     );
   }
@@ -81,7 +90,9 @@ HomePage.propTypes = {
   experienceData: React.PropTypes.array.isRequired,
   experienceActions: React.PropTypes.object.isRequired,
   featuredProjectsData: React.PropTypes.array.isRequired,
-  projectsActions: React.PropTypes.object.isRequired
+  projectsActions: React.PropTypes.object.isRequired,
+  educationActions: React.PropTypes.object.isRequired,
+  educationData: React.PropTypes.array.isRequired,
 };
 
 function mapStateToProps(reduxState){
@@ -89,7 +100,8 @@ function mapStateToProps(reduxState){
     pageData: reduxState.home.pageData,
     skillsData: reduxState.skills.data,
     experienceData: reduxState.experience.data,
-    featuredProjectsData: reduxState.projects.featured
+    featuredProjectsData: reduxState.projects.featured,
+    educationData: reduxState.education.data
   };
 }
 
@@ -99,7 +111,8 @@ function mapDispatchToProps(dispatch){
     homeActions: bindActionCreators(homeActions,dispatch),
     skillsActions: bindActionCreators(skillsActions, dispatch),
     experienceActions: bindActionCreators(experienceActions, dispatch),
-    projectsActions: bindActionCreators(projectsActions, dispatch)
+    projectsActions: bindActionCreators(projectsActions, dispatch),
+    educationActions: bindActionCreators(educationActions, dispatch)
   };
 }
 
