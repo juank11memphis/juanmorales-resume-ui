@@ -10,7 +10,8 @@ class ProjectsSection extends React.Component {
   }
 
   render(){
-    const {pageData, onViewMore} = this.props;
+    const {pageData, data, onViewMore} = this.props;
+    console.log('Projects Section render...', data);
     return (
       <Container style={commonStyles.margin(20)} >
         <Header

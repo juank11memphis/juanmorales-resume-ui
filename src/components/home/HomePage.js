@@ -7,7 +7,7 @@ import {headerActions} from '../common/header';
 import {homeActions} from '../home';
 import {skillsActions, SkillsSection} from '../skills';
 import {experienceActions, ExperienceSection} from '../experience';
-import {ProjectsSection} from '../projects';
+import {ProjectsSection, projectsActions} from '../projects';
 
 class HomePage extends React.Component {
 
@@ -20,6 +20,7 @@ class HomePage extends React.Component {
     this.loadPageData();
     this.loadSkillsData();
     this.loadExperienceData();
+    this.loadProjectsData();
   }
 
   loadPageData() {
@@ -37,6 +38,11 @@ class HomePage extends React.Component {
     experienceActions.loadExperienceData();
   }
 
+  loadProjectsData() {
+    const {projectsActions} = this.props;
+    projectsActions.loadFeaturedProjectsData();
+  }
+
   onViewMore() {
     const {headerActions} = this.props;
     const path = 'projects';
@@ -45,12 +51,17 @@ class HomePage extends React.Component {
   }
 
   render() {
-    const {skillsData, experienceData, pageData} = this.props;
+    const {
+      skillsData,
+      experienceData,
+      pageData,
+      featuredProjectsData
+    } = this.props;
     return (
       <Container>
         <SkillsSection data={skillsData} pageData={pageData.skills} />
         <ExperienceSection data={experienceData} pageData={pageData.experience} />
-        <ProjectsSection data={[]} pageData={pageData.projects} onViewMore={this.onViewMore} />
+        <ProjectsSection data={featuredProjectsData} pageData={pageData.projects} onViewMore={this.onViewMore} />
       </Container>
     );
   }
@@ -68,14 +79,17 @@ HomePage.propTypes = {
   skillsData: React.PropTypes.object.isRequired,
   skillsActions: React.PropTypes.object.isRequired,
   experienceData: React.PropTypes.array.isRequired,
-  experienceActions: React.PropTypes.object.isRequired
+  experienceActions: React.PropTypes.object.isRequired,
+  featuredProjectsData: React.PropTypes.array.isRequired,
+  projectsActions: React.PropTypes.object.isRequired
 };
 
 function mapStateToProps(reduxState){
   return {
     pageData: reduxState.home.pageData,
     skillsData: reduxState.skills.data,
-    experienceData: reduxState.experience.data
+    experienceData: reduxState.experience.data,
+    featuredProjectsData: reduxState.projects.featured
   };
 }
 
@@ -84,7 +98,8 @@ function mapDispatchToProps(dispatch){
     headerActions: bindActionCreators(headerActions, dispatch),
     homeActions: bindActionCreators(homeActions,dispatch),
     skillsActions: bindActionCreators(skillsActions, dispatch),
-    experienceActions: bindActionCreators(experienceActions, dispatch)
+    experienceActions: bindActionCreators(experienceActions, dispatch),
+    projectsActions: bindActionCreators(projectsActions, dispatch)
   };
 }
 

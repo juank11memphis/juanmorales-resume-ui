@@ -35,6 +35,11 @@ export default {
 
   experience: {
     data: []
+  },
+
+  projects: {
+    featured: [],
+    data: []
   }
 
 };
