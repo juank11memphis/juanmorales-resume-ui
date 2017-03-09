@@ -43,7 +43,7 @@ class ExperienceSection extends React.Component {
     const {pageData, data} = this.props;
     const activeItem = this.getActiveItem();
     return (
-      <Container style={commonStyles.margin(20)} >
+      <Container id="experience" style={commonStyles.margin(20)} >
         <Header
           as="h1"
           textAlign="center" >

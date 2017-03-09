@@ -38,7 +38,7 @@ class EducationSection extends React.Component {
   render(){
     const {pageData, data} = this.props;
     return (
-      <Container style={commonStyles.margin(20)} >
+      <Container id="education" style={commonStyles.margin(20)} >
         <Header
           as="h1"
           textAlign="center" >

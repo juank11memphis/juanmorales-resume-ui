@@ -31,7 +31,8 @@
     "redux-thunk": "2.2.0",
     "semantic-ui-css": "2.2.9",
     "semantic-ui-react": "0.67.0",
-    "react-s-alert": "1.2.2"
+    "react-s-alert": "1.2.2",
+    "smooth-anchorate": "1.2.1"
   },
   "devDependencies": {
     "autoprefixer": "6.7.6",

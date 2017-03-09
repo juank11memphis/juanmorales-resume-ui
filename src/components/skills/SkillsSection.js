@@ -116,7 +116,7 @@ class SkillsSection extends React.Component {
     let skillsMenuOptions = this.getSkillsMenuOptions();
 
     return (
-      <Container style={commonStyles.margin(20)} >
+      <Container id="skills" style={commonStyles.margin(20)} >
         <Container textAlign="center" >
           <Header
             as="h1"
