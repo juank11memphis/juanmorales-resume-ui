@@ -15,7 +15,7 @@ export function loadPageData() {
 
 export function loadPageDataSuccess(headerPageData) {
   return {
-    type: types.LOAD_PAGE_DATA_SUCCESS,
+    type: types.LOAD_HEADER_PAGE_DATA_SUCCESS,
     headerPageData
   };
 }
