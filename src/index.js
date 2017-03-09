@@ -8,6 +8,8 @@ import configureStore from './core/configureStore';
 
 import 'semantic-ui-css/semantic.css';
 import './styles/main.scss';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
 
 const store = configureStore();
 

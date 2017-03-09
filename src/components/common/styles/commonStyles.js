@@ -1,5 +1,7 @@
 export const styles = {
 
+  DEEP_BLUE: '#24292e',
+
   margin: (top, right, bottom, left) => {
     let styleObj = {};
     top && (styleObj.marginTop = top + 'px');

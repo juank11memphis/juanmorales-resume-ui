@@ -51,6 +51,16 @@ export default {
 
   interests: {
     data: []
+  },
+
+  footer: {
+    pageData: {
+      socialLinksTitle: '',
+      socialLinks: [],
+      developedByText: '',
+      poweredByText: '',
+      rightsText: ''
+    }
   }
 
 };
