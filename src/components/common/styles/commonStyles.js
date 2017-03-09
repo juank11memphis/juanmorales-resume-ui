@@ -32,8 +32,19 @@ export const styles = {
 
   size: (width, height) => {
     let styleObj = {};
-    width && (styleObj.width = width + 'px');
-    height && (styleObj.height = height + 'px');
+
+    if (width && typeof width === 'number') {
+      styleObj.width = width + 'px';
+    } else if (width) {
+      styleObj.width = width;
+    }
+
+    if (height && typeof height === 'number') {
+      styleObj.height = height + 'px';
+    } else if (height) {
+      styleObj.height = height;
+    }
+
     return styleObj;
   },
 

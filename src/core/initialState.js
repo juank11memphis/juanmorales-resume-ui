@@ -47,6 +47,10 @@ export default {
 
   education: {
     data: []
+  },
+
+  interests: {
+    data: []
   }
 
 };

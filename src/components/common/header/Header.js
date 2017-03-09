@@ -4,7 +4,7 @@ import { Menu, Container, Image, Header } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import logo from '../../../styles/logo.png';
+import logo from '../../../styles/img/logo.png';
 import * as headerActions from './headerActions';
 import commonStyles from '../../common/styles';
 

@@ -5,6 +5,7 @@ import {skillsReducer} from '../components/skills';
 import {experienceReducer} from '../components/experience';
 import {projectsReducer} from '../components/projects';
 import {educationReducer} from '../components/education';
+import {interestsReducer} from '../components/interests';
 
 const rootReducer = combineReducers({
   header: headerReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   skills: skillsReducer,
   experience: experienceReducer,
   projects: projectsReducer,
-  education: educationReducer
+  education: educationReducer,
+  interests: interestsReducer
 });
 
 export default rootReducer;
