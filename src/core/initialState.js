@@ -42,7 +42,10 @@ export default {
 
   projects: {
     featured: [],
-    data: []
+    data: [],
+    pageData: {
+      title: ''
+    }
   },
 
   education: {

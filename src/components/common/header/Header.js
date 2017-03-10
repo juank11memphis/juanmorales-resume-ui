@@ -14,6 +14,7 @@ class AppHeader extends Component {
     super(props, context);
     this.state = { activeItem: null };
     this.useActiveItemFromPageData = false;
+    this.onLogoClick = this.onLogoClick.bind(this);
   }
 
   componentWillMount() {
@@ -32,6 +33,13 @@ class AppHeader extends Component {
   handleItemClick = (event, { name }) => {
     this.setState({ activeItem: name });
   };
+
+  onLogoClick() {
+    const {headerActions} = this.props;
+    const path = '/';
+    this.context.router.push(path);
+    headerActions.setActiveItem('home');
+  }
 
   createMenuItem = (menuItem, index, activeItem) => {
     let indexType = menuItem.home === true ? IndexLink : Link;
@@ -65,7 +73,12 @@ class AppHeader extends Component {
     return (
       <Container style={commonStyles.size(null, 454)} >
         <Menu size="large" inverted pointing secondary >
-          <Image src={logo} width="50" height="50" />
+          <Image
+            src={logo}
+            width="50"
+            height="50"
+            style={{cursor: 'pointer'}}
+            onClick={this.onLogoClick} />
           <Menu.Menu position="right">
             {
               pageData.menuItems.map( (menuItem, index) => this.createMenuItem(menuItem, index, activeItem))

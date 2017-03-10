@@ -16,7 +16,7 @@ class ProjectsSection extends React.Component {
       return (
         <Label
           key={index}
-          style={commonStyles.margin(0, 0, 5, 0)}
+          style={commonStyles.margin(0, 5, 5, 0)}
           color="teal" >
           {techItem}
         </Label>
