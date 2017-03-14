@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
-import { IndexLink, Link } from 'react-router';
-import { Menu, Container, Image, Header } from 'semantic-ui-react';
+import { Container, Header } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import logo from '../../../styles/img/logo.png';
 import * as headerActions from './headerActions';
 import commonStyles from '../../common/styles';
+import HeaderMenu from './HeaderMenu';
 
 class AppHeader extends Component {
 
   constructor(props, context) {
     super(props, context);
     this.state = { activeItem: null };
-    this.useActiveItemFromPageData = false;
+    this.DEFAULT_MENU_ITEM = 'home';
     this.onLogoClick = this.onLogoClick.bind(this);
+    this.handleItemClick = this.handleItemClick.bind(this);
   }
 
   componentWillMount() {
@@ -22,75 +22,55 @@ class AppHeader extends Component {
     headerActions.loadPageData();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if ( nextProps.pageData.activeItem ) {
-      this.useActiveItemFromPageData = true;
-    }
-  }
-
-  DEFAULT_MENU_ITEM = 'home';
-
-  handleItemClick = (event, { name }) => {
+  handleItemClick(event, { name }) {
     this.setState({ activeItem: name });
-  };
+  }
 
   onLogoClick() {
-    const {headerActions} = this.props;
     const path = '/';
     this.context.router.push(path);
-    headerActions.setActiveItem('home');
+    this.setState({ activeItem:null });
   }
 
-  createMenuItem = (menuItem, index, activeItem) => {
-    let indexType = menuItem.home === true ? IndexLink : Link;
-    const menuItemEl = (
-      <Menu.Item
-        key={index}
-        as={indexType}
-        to={menuItem.to}
-        name={menuItem.name}
-        active={activeItem === menuItem.name}
-        onClick={this.handleItemClick} >
-        {menuItem.text}
-      </Menu.Item>
-    );
-    return menuItemEl;
-  };
+  getMenuActiveItem() {
+    let { activeItem } = this.state;
+    if (activeItem === null) {
+      activeItem = this.getActiveItemFromUrl();
+    }
+    activeItem = activeItem ? activeItem : this.DEFAULT_MENU_ITEM;
+    return activeItem;
+  }
+
+  getActiveItemFromUrl() {
+    const currentLocation = this.context.router.getCurrentLocation();
+    let activeItem;
+    if (currentLocation.pathname === '/' && currentLocation.hash.length > 0) {
+      activeItem = currentLocation.hash.substring(1, currentLocation.hash.length);
+    } else {
+      activeItem = currentLocation.pathname.substring(1, currentLocation.pathname.length);
+    }
+    return activeItem;
+  }
 
   render() {
     const {pageData} = this.props;
-    let { activeItem } = this.state;
-    if (this.useActiveItemFromPageData && pageData.activeItem) {
-      activeItem = pageData.activeItem;
-      this.useActiveItemFromPageData = false;
-    }
-    if (activeItem === null) {
-      activeItem = this.context.router.getCurrentLocation().pathname;
-      activeItem = activeItem.substring(1, activeItem.length);
-    }
-    activeItem = activeItem ? activeItem : this.DEFAULT_MENU_ITEM;
-
+    const activeItem = this.getMenuActiveItem();
     return (
       <Container style={commonStyles.size(null, 454)} >
-        <Menu size="large" inverted pointing secondary >
-          <Image
-            src={logo}
-            width="50"
-            height="50"
-            style={{cursor: 'pointer'}}
-            onClick={this.onLogoClick} />
-          <Menu.Menu position="right">
-            {
-              pageData.menuItems.map( (menuItem, index) => this.createMenuItem(menuItem, index, activeItem))
-            }
-          </Menu.Menu>
-        </Menu>
+
+        <HeaderMenu
+          items={pageData.menuItems}
+          activeItem={activeItem}
+          onClick={this.handleItemClick}
+          onLogoClick={this.onLogoClick} />
+
         <div className="ui middle aligned grid" style={commonStyles.size(null, 400)} >
           <div className="eight column wide">
             <Header as="h1" inverted >{pageData.title}</Header>
             <Header as="h3" inverted >{pageData.subtitle}</Header>
           </div>
         </div>
+
       </Container>
     );
   }
@@ -118,4 +98,3 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);
-

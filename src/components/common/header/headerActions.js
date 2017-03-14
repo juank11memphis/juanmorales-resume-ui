@@ -19,10 +19,3 @@ export function loadPageDataSuccess(headerPageData) {
     headerPageData
   };
 }
-
-export function setActiveItem(activeItem) {
-  return {
-    type: types.SET_ACTIVE_ITEM,
-    activeItem
-  };
-}

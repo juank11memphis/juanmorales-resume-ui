@@ -4,8 +4,7 @@ export default {
     pageData: {
       menuItems: [],
       title: '',
-      subtitle: '',
-      activeItem: null
+      subtitle: ''
     }
   },
 
