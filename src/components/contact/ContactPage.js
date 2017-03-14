@@ -1,11 +1,12 @@
 import React from 'react';
-import { Container, Header, Message } from 'semantic-ui-react';
+import { Container, Header } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import {contactActions} from '../contact';
 import commonStyles from '../common/styles';
 import ContactForm from './ContactForm';
+import ContactSuccess from './ContactSuccess';
 
 class ContactPage extends React.Component {
 
@@ -49,17 +50,8 @@ class ContactPage extends React.Component {
           as="h3" >
           {pageData.subtitle}
         </Header>
-        { !messageSent && <ContactForm onSend={this.onSendForm} />}
-        {
-          messageSent &&
-          <Message
-            size="massive"
-            info>
-            <Message.Header>Thanks a lot for your message!</Message.Header>
-            <p>I will do my best to answer in the next 48 hours</p>
-            <p>Please don't hesitate to contact me again in case you need it</p>
-          </Message>
-        }
+        { !messageSent && <ContactForm onSend={this.onSendForm} /> }
+        { messageSent && <ContactSuccess /> }
       </Container>
     );
   }
