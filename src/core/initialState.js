@@ -56,6 +56,13 @@ export default {
     data: []
   },
 
+  contact: {
+    pageData: {
+      title: '',
+      subtitle: ''
+    }
+  },
+
   footer: {
     pageData: {
       socialLinksTitle: '',

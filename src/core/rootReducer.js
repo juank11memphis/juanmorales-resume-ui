@@ -6,6 +6,7 @@ import {experienceReducer} from '../components/experience';
 import {projectsReducer} from '../components/projects';
 import {educationReducer} from '../components/education';
 import {interestsReducer} from '../components/interests';
+import {contactReducer} from '../components/contact';
 import {footerReducer} from '../components/common/footer';
 
 const rootReducer = combineReducers({
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   projects: projectsReducer,
   education: educationReducer,
   interests: interestsReducer,
+  contact: contactReducer,
   footer: footerReducer
 });
 
