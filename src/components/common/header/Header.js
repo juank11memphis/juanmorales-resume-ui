@@ -13,6 +13,7 @@ class AppHeader extends Component {
     super(props, context);
     this.state = { activeItem: null };
     this.DEFAULT_MENU_ITEM = 'home';
+    this.useActiveItemFromPageData = false;
     this.onLogoClick = this.onLogoClick.bind(this);
     this.handleItemClick = this.handleItemClick.bind(this);
   }
@@ -20,6 +21,12 @@ class AppHeader extends Component {
   componentWillMount() {
     const {headerActions} = this.props;
     headerActions.loadPageData();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if ( nextProps.pageData.activeItem ) {
+      this.useActiveItemFromPageData = true;
+    }
   }
 
   handleItemClick(event, { name }) {
@@ -33,7 +40,20 @@ class AppHeader extends Component {
   }
 
   getMenuActiveItem() {
+    const {pageData} = this.props;
     let { activeItem } = this.state;
+
+    /*
+     * useActiveItemFromPageData is used when moving to a new route using this.context.router.push(path),
+     * that means we are going to a new route without clicking directly on a menu item, that is why
+     * we need a way to sync the current route with the proper menu item.
+     * when useActiveItemFromPageData is true it means the action headerActions.setActiveItem was called
+     */
+    if (this.useActiveItemFromPageData && pageData.activeItem) {
+      activeItem = pageData.activeItem;
+      this.useActiveItemFromPageData = false;
+    }
+
     if (activeItem === null) {
       activeItem = this.getActiveItemFromUrl();
     }
