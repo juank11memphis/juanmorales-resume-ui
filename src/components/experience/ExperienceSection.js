@@ -1,7 +1,8 @@
 import React from 'react';
-import { Container, Header, Grid, Menu, Segment } from 'semantic-ui-react';
+import { Container, Header, Grid, Segment } from 'semantic-ui-react';
 
 import commonStyles from '../common/styles';
+import ExperienceMenu from './ExperienceMenu';
 import ExperienceDetail from './ExperienceDetail';
 
 class ExperienceSection extends React.Component {
@@ -14,19 +15,6 @@ class ExperienceSection extends React.Component {
 
   handleItemClick(experienceItem) {
     this.setState({ activeItem: experienceItem });
-  }
-
-  createMenuItem(experienceItem, index, activeItem) {
-    const yearsText = experienceItem.years > 1 ? ' years' : ' year';
-    const menuItemEl = (
-      <Menu.Item
-        key={index}
-        active={activeItem.id === experienceItem.id}
-        onClick={() => this.handleItemClick(experienceItem)} >
-        {experienceItem.companyName + '\n' + experienceItem.years + yearsText}
-      </Menu.Item>
-    );
-    return menuItemEl;
   }
 
   getActiveItem() {
@@ -50,12 +38,9 @@ class ExperienceSection extends React.Component {
           {pageData.title}
         </Header>
         <Grid style={commonStyles.margin(20)} >
+
           <Grid.Column width={4}>
-            <Menu fluid vertical tabular>
-              {
-                data && data.map( (experienceItem, index) => this.createMenuItem(experienceItem, index, activeItem))
-              }
-            </Menu>
+            <ExperienceMenu items={data} activeItem={activeItem} onClick={this.handleItemClick} />
           </Grid.Column>
 
           <Grid.Column stretched width={12}>
@@ -63,6 +48,7 @@ class ExperienceSection extends React.Component {
               { activeItem && <ExperienceDetail item={activeItem} />}
             </Segment>
           </Grid.Column>
+
         </Grid>
       </Container>
     );
