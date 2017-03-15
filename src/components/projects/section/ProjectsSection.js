@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Header, Card } from 'semantic-ui-react';
 
-import commonStyles from '../common/styles';
+import commonStyles from '../../common/styles';
 import ProjectCard from './ProjectCard';
 
 const ProjectsSection = (props) => {

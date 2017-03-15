@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Label } from 'semantic-ui-react';
 
-import commonStyles from '../common/styles';
+import commonStyles from '../../common/styles';
 
 const ProjectCard = (props) => {
 
