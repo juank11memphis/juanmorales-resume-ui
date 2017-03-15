@@ -81,11 +81,11 @@ class SkillsSection extends React.Component {
     if (isSearching) {
       return this.getSkillsListBySearchText();
     } else {
-      return this.getFilteredSkillsList();
+      return this.getSkillsListByFilters();
     }
   }
 
-  getFilteredSkillsList() {
+  getSkillsListByFilters() {
     const {data} = this.props;
     const selectedSkillsBy = this.getSelectedSkillsBy();
     const options = data.options[selectedSkillsBy];
@@ -110,9 +110,13 @@ class SkillsSection extends React.Component {
     });
   }
 
+  shouldShowSkillsOptionsMenu(skillsMenuOptions) {
+    const {isSearching} = this.state;
+    return (!isSearching && skillsMenuOptions && skillsMenuOptions.length > 0);
+  }
+
   render(){
     const {pageData} = this.props;
-    const {isSearching} = this.state;
     let skillsMenuOptions = this.getSkillsMenuOptions();
 
     return (
@@ -142,7 +146,7 @@ class SkillsSection extends React.Component {
         </Container>
         <Container textAlign="center" style={commonStyles.margin(20)} >
           {
-            (!isSearching && skillsMenuOptions && skillsMenuOptions.length > 0) &&
+            this.shouldShowSkillsOptionsMenu(skillsMenuOptions) &&
               <SkillsOptionsMenu options={skillsMenuOptions} onChange={this.onSkillsOptionsMenuChange} />
           }
           <SkillsList items={this.getSkillsList()} />

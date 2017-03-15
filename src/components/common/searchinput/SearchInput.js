@@ -49,7 +49,7 @@ class SearchInput extends React.Component {
 }
 
 SearchInput.defaultProps = {
-  interval: 500
+  interval: 300
 };
 
 SearchInput.propTypes = {
