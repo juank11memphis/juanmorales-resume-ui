@@ -58,34 +58,6 @@ module.exports = function(env) {
       new InlineManifestWebpackPlugin({
         name: 'webpackManifest'
       })
-    ],
-    devServer: {
-      contentBase: path.join(__dirname, '../dist'),
-      publicPath: '/',
-      historyApiFallback: true,
-      port: 3000,
-      compress: true,
-      // https: true,
-      inline: false,
-      hot: false,
-      proxy: {
-        "/api": "http://ec2-52-206-80-230.compute-1.amazonaws.com:3001",
-        "/static": "http://ec2-52-206-80-230.compute-1.amazonaws.com:3001"
-      },
-      stats: {
-        assets: true,
-        children: false,
-        chunks: false,
-        hash: false,
-        modules: false,
-        publicPath: false,
-        timings: true,
-        version: false,
-        warnings: true,
-        colors: {
-          green: '\u001b[32m'
-        }
-      }
-    }
+    ]
   })
 }
