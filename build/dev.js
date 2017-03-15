@@ -28,6 +28,10 @@ module.exports = function(env) {
       port: 3000,
       inline: true,
       hot: true,
+      proxy: {
+        "/api": "http://localhost:3001",
+        "/static": "http://localhost:3001"
+      },
       stats: {
         assets: true,
         children: false,
