@@ -20,7 +20,7 @@
     "prebuild": "npm run clean-dist",
     "clean-dist": "npm run remove-dist && mkdir dist",
     "remove-dist": "node_modules/.bin/rimraf ./dist",
-    "postbuild": "node build/prodServer.js"
+    "prod-server": "node build/prodServer.js"
   },
   "dependencies": {
     "isomorphic-fetch": "2.2.1",

@@ -57,6 +57,10 @@ module.exports = function() {
           loader: 'file-loader'
         },
         {
+          test: /\.(ico)$/i,
+          loader: 'file-loader?name=[name].[ext]'
+        },
+        {
           test: /\.(woff|woff2|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
           loader: 'url-loader?limit=100000'
         },

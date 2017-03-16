@@ -12,6 +12,8 @@ import './styles/main.scss';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/jelly.css';
 
+import './styles/img/favicon.ico';
+
 const store = configureStore();
 
 function onRouterUpdate(){

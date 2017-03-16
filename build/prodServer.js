@@ -9,11 +9,11 @@ var port = 3000;
 var app = express();
 
 app.use('/api', proxy({
-  target: 'http://ec2-52-206-80-230.compute-1.amazonaws.com:3001',
+  target: 'http://ec2-34-195-147-72.compute-1.amazonaws.com:3001',
   changeOrigin: true
 }));
 app.use('/static', proxy({
-  target: 'http://ec2-52-206-80-230.compute-1.amazonaws.com:3001',
+  target: 'http://ec2-34-195-147-72.compute-1.amazonaws.com:3001',
   changeOrigin: true
 }));
 app.use(compression());
