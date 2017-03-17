@@ -1,5 +1,6 @@
 import * as types from './interestsActionTypes';
 import {AjaxUtil} from '../../util';
+import fetch from 'isomorphic-fetch';
 
 function getFetchUrl(){
   return AjaxUtil.BASE_URL + 'interests';

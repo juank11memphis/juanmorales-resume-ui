@@ -1,5 +1,6 @@
 import * as types from './projectsActionTypes';
 import {AjaxUtil} from '../../util';
+import fetch from 'isomorphic-fetch';
 
 function getFeaturedProjectsFetchUrl(){
   return AjaxUtil.BASE_URL + 'projects/featured';

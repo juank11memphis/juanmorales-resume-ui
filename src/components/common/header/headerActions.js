@@ -1,5 +1,6 @@
 import * as types from './headerActionTypes';
 import {AjaxUtil} from '../../../util';
+import fetch from 'isomorphic-fetch';
 
 function getPageDataFetchUrl(){
   return AjaxUtil.BASE_URL + 'header/pagedata';
