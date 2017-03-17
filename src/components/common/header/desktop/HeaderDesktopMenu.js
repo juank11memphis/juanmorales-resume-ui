@@ -2,7 +2,7 @@ import React from 'react';
 import { IndexLink, Link } from 'react-router';
 import { Menu } from 'semantic-ui-react';
 
-import HeaderLogo from './HeaderLogo';
+import HeaderLogo from '../HeaderLogo';
 
 const HeaderMenu = (props) => {
 

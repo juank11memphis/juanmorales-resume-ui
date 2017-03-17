@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import { Container, Header } from 'semantic-ui-react';
+import { Container, Grid } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import * as headerActions from './headerActions';
 import commonStyles from '../../common/styles';
-import HeaderMenu from './HeaderMenu';
+import HeaderDesktop from './desktop/HeaderDesktop';
+import HeaderMobile from './mobile/HeaderMobile';
 
 class AppHeader extends Component {
 
@@ -78,18 +79,20 @@ class AppHeader extends Component {
     return (
       <Container style={commonStyles.size(null, 454)} >
 
-        <HeaderMenu
-          items={pageData.menuItems}
-          activeItem={activeItem}
-          onClick={this.handleItemClick}
-          onLogoClick={this.onLogoClick} />
+        <Grid>
+          <HeaderDesktop
+            pageData={pageData}
+            activeItem={activeItem}
+            onMenuItemClick={this.handleItemClick}
+            onLogoClick={this.onLogoClick} />
 
-        <div className="ui middle aligned grid" style={commonStyles.size(null, 400)} >
-          <div className="eight column wide">
-            <Header as="h1" inverted >{pageData.title}</Header>
-            <Header as="h3" inverted >{pageData.subtitle}</Header>
-          </div>
-        </div>
+          <HeaderMobile
+            pageData={pageData}
+            activeItem={activeItem}
+            onMenuItemClick={this.handleItemClick}
+            onLogoClick={this.onLogoClick} />
+
+        </Grid>
 
       </Container>
     );

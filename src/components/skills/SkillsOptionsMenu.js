@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Menu } from 'semantic-ui-react';
+import { Menu, Grid } from 'semantic-ui-react';
+
+import commonStyles from '../common/styles';
 
 class SkillsOptionsMenu extends Component {
 
@@ -49,11 +51,29 @@ class SkillsOptionsMenu extends Component {
     let activeItem = this.getActiveItem();
 
     return (
-      <Menu compact >
-        {
-          options && options.map( (optionItem, index) => this.createMenuItem(optionItem, index, activeItem))
-        }
-      </Menu>
+      <Grid>
+
+        <Grid.Row only="computer" >
+          <Grid.Column>
+            <Menu compact >
+              {
+                options && options.map( (optionItem, index) => this.createMenuItem(optionItem, index, activeItem))
+              }
+            </Menu>
+          </Grid.Column>
+        </Grid.Row>
+
+        <Grid.Row only="tablet mobile" style={commonStyles.padding(0)} >
+          <Grid.Column>
+            <Menu vertical fluid >
+              {
+                options && options.map( (optionItem, index) => this.createMenuItem(optionItem, index, activeItem))
+              }
+            </Menu>
+          </Grid.Column>
+        </Grid.Row>
+        
+      </Grid>
     );
   }
 }

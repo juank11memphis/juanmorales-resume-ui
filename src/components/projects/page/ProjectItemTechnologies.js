@@ -14,7 +14,7 @@ const ProjectItemTechnologies = (props) => {
           <Label
             key={index}
             size="large"
-            style={commonStyles.margin(0, 5, 0, 0)}
+            style={commonStyles.margin(0, 5, 5, 0)}
             color="teal" >
             {technology}
           </Label>

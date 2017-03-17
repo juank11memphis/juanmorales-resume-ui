@@ -12,10 +12,14 @@ export const styles = {
     return styleObj;
   },
 
-  marginAll: (padding) => {
-    return {
-      margin: padding + 'px'
-    };
+  marginAll: (margin) => {
+    const styleObj = {};
+    if (typeof margin === 'number') {
+      styleObj.margin = margin + 'px';
+    } else {
+      styleObj.margin = margin;
+    }
+    return styleObj;
   },
 
   padding: (top, right, bottom, left) => {
@@ -55,6 +59,13 @@ export const styles = {
     let styleObj = {};
     (min !== undefined) && (styleObj.minHeight = min + 'px');
     (max !== undefined) && (styleObj.maxHeight = max + 'px');
+    return styleObj;
+  },
+
+  minMaxWidth: (min, max) => {
+    let styleObj = {};
+    (min !== undefined) && (styleObj.minWidth = min + 'px');
+    (max !== undefined) && (styleObj.maxWidth = max + 'px');
     return styleObj;
   },
 

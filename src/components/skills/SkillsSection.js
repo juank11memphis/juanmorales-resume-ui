@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Header, Dropdown } from 'semantic-ui-react';
+import { Container, Header, Dropdown, Grid } from 'semantic-ui-react';
 
 import commonStyles from '../common/styles';
 import SkillsOptionsMenu from './SkillsOptionsMenu';
@@ -120,29 +120,29 @@ class SkillsSection extends React.Component {
     let skillsMenuOptions = this.getSkillsMenuOptions();
 
     return (
-      <Container id="skills" style={commonStyles.margin(20)} >
+      <Container
+        id="skills"
+        style={commonStyles.margin(20)}
+        className="skills-section" >
         <Container textAlign="center" >
           <Header
             as="h1"
             textAlign="center" >
             {pageData.title}
           </Header>
-          <Header
-            as="h2"
-            style={commonStyles.inlineBlockElement}
-            textAlign="center" >
-            {pageData.skillsByText}
-          </Header>
-          <Dropdown
-            selection
-            options={pageData.skillsByOptions}
-            style={commonStyles.inlineBlockElement}
-            defaultValue="category"
-            onChange={this.onSkillsByChange} />
-          <SearchInput
-            ref="inputSearch"
-            onSearch={this.onSearch}
-            style={commonStyles.inlineBlockElement} />
+          <Grid stackable >
+            <Grid.Column width={16} >
+              <Dropdown
+                className="dropdown-skills-by"
+                selection
+                options={pageData.skillsByOptions}
+                defaultValue="category"
+                onChange={this.onSkillsByChange} />
+              <SearchInput
+                ref="inputSearch"
+                onSearch={this.onSearch} />
+            </Grid.Column>
+          </Grid>
         </Container>
         <Container textAlign="center" style={commonStyles.margin(20)} >
           {

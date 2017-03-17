@@ -24,7 +24,7 @@ const SocialLink = (props) => {
   const imageContainerStyle = Object.assign(
     {},
     commonStyles.inlineBlockElement,
-    { marginRight: '30px' }
+    { marginRight: '10px' }
   );
 
   return (

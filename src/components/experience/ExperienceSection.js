@@ -1,60 +1,59 @@
 import React from 'react';
-import { Container, Header, Grid, Segment } from 'semantic-ui-react';
+import { Container, Header, Accordion } from 'semantic-ui-react';
 
 import commonStyles from '../common/styles';
-import ExperienceMenu from './ExperienceMenu';
 import ExperienceDetail from './ExperienceDetail';
 
-class ExperienceSection extends React.Component {
+const ExperienceSection = (props) => {
 
-  constructor(props, context) {
-    super(props, context);
-    this.state = { activeItem: null };
-    this.handleItemClick = this.handleItemClick.bind(this);
-  }
+  const {pageData, data} = props;
 
-  handleItemClick(experienceItem) {
-    this.setState({ activeItem: experienceItem });
-  }
-
-  getActiveItem() {
-    const {activeItem} = this.state;
-    return activeItem ? activeItem : this.getFirstItem();
-  }
-
-  getFirstItem() {
-    const {data} = this.props;
-    return (data && data.length > 0) ? data[0] : null;
-  }
-
-  render(){
-    const {pageData, data} = this.props;
-    const activeItem = this.getActiveItem();
+  const getAccordionTitle = (item) => {
+    const yearsText = item.years > 1 ? ' years' : ' year';
+    const titleStyle = {
+      fontWeight: 'bold',
+      color: 'black'
+    };
     return (
-      <Container id="experience" style={commonStyles.margin(20)} >
-        <Header
-          as="h1"
-          textAlign="center" >
-          {pageData.title}
-        </Header>
-        <Grid style={commonStyles.margin(20)} >
-
-          <Grid.Column width={4}>
-            <ExperienceMenu items={data} activeItem={activeItem} onClick={this.handleItemClick} />
-          </Grid.Column>
-
-          <Grid.Column stretched width={12}>
-            <Segment>
-              { activeItem && <ExperienceDetail item={activeItem} />}
-            </Segment>
-          </Grid.Column>
-
-        </Grid>
-      </Container>
+      <span style={titleStyle} >
+        {item.companyName + ' / ' + item.years + yearsText}
+      </span>
     );
-  }
+  };
 
-}
+  const getAccordionContent = (item) => {
+    return (
+      <ExperienceDetail item={item} />
+    );
+  };
+
+  const getAccordionPanels = () => {
+    const panels = data.map( (item, index) => {
+      return {
+        key: `panel-${index}`,
+        title: getAccordionTitle(item),
+        content: getAccordionContent(item)
+      };
+    });
+    return panels;
+  };
+
+  return (
+    <Container id="experience" style={commonStyles.margin(20)} >
+      <Header
+        as="h1"
+        textAlign="center" >
+        {pageData.title}
+      </Header>
+      <Accordion
+        fluid
+        panels={getAccordionPanels()}
+        styled
+        defaultActiveIndex={0} />
+    </Container>
+  );
+
+};
 
 ExperienceSection.defaultProps = {
   pageData: {},
